@@ -1,4 +1,4 @@
-const isValidNotionUrl = (url: string) => {
+export const isValidNotionUrl = (url: string) => {
   try {
     const urlObj = new URL(url);
     return (
