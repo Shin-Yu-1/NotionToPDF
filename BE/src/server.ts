@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import { generatePDF } from "./services/generatePDF";
-import { isValidNotionUrl } from "./util";
+import { generatePDF } from "./services/pdfService";
+import { isValidNotionUrl } from "./utils/util";
 import type { ConvertRequest } from "./types/request.types";
 
 config();
