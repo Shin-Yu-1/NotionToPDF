@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import { generatePDF } from "./generate";
+import { generatePDF } from "./services/generatePDF";
 import { isValidNotionUrl } from "./util";
+import type { ConvertRequest } from "./types/request.types";
 
 config();
 
@@ -16,25 +17,34 @@ app.get("/", (req: Request, res: Response) => {
   res.json({ message: "Notion to PDF Converter API" });
 });
 
-app.post("/api/convert", async (req: Request, res: Response) => {
-  const { notionUrl } = req.body;
+app.post(
+  "/api/convert",
+  async (req: Request<{}, Buffer, ConvertRequest>, res: Response) => {
+    const { notionUrl } = req.body;
 
-  if (!notionUrl || !isValidNotionUrl(notionUrl)) {
-    return res.status(400).send("Invalid Notion URL");
+    if (!notionUrl || !isValidNotionUrl(notionUrl)) {
+      return res.status(400).send("Invalid Notion URL");
+    }
+
+    try {
+      const startTime = Date.now();
+      const pdf = await generatePDF(notionUrl);
+      const duration = Date.now() - startTime;
+
+      console.log(
+        `PDF generated successfully in ${duration}ms, size: ${pdf.length} bytes`
+      );
+
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="notion-${Date.now()}.pdf"`,
+      });
+      res.send(pdf);
+    } catch (error) {
+      res.status(500).send("PDF generation failed");
+    }
   }
-
-  try {
-    const pdf = await generatePDF(notionUrl);
-
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="notion.pdf"',
-    });
-    res.send(pdf);
-  } catch (error) {
-    res.status(500).send("PDF generation failed");
-  }
-});
+);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
