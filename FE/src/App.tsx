@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div>
-        <input type="file" ref={inputRef} />
+        <input type="text" ref={inputRef} />
       </div>
     </>
   );
