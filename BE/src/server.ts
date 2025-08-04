@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import { generatePDF } from "./generate";
+import { isValidNotionUrl } from "./util";
 
 config();
 
@@ -18,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/api/convert", async (req: Request, res: Response) => {
   const { notionUrl } = req.body;
 
-  if (!notionUrl || !notionUrl.includes("notion.so")) {
+  if (!notionUrl || !isValidNotionUrl(notionUrl)) {
     return res.status(400).send("Invalid Notion URL");
   }
 
