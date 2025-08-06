@@ -1,18 +1,11 @@
 import puppeteer from "puppeteer";
-import type { notionUrl } from "../types/request.types";
+import type { NotionUrl } from "../types/request.types";
 
-export async function generatePDF(notionUrl: notionUrl): Promise<Uint8Array> {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-
+export const generatePDF = async (notionUrl: NotionUrl) => {
+  const browser = await puppeteer.launch();
   try {
     const page = await browser.newPage();
-
-    await page.goto(notionUrl, { waitUntil: "networkidle0" });
-
-    // PDF 생성 (A4, 지정된 여백)
+    await page.goto(notionUrl, { waitUntil: "networkidle2" });
     const pdfBuffer = await page.pdf({
       format: "A4",
       margin: {
@@ -23,9 +16,8 @@ export async function generatePDF(notionUrl: notionUrl): Promise<Uint8Array> {
       },
       printBackground: true,
     });
-
     return pdfBuffer;
   } finally {
     await browser.close();
   }
-}
+};
