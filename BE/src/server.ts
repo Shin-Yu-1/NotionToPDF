@@ -40,10 +40,8 @@ app.post(
         "Content-Disposition": `attachment; filename="notion-${Date.now()}.pdf"`,
       });
 
-      console.log(pdf);
       res.send(pdf);
-    } catch (error) {
-      console.log(error);
+    } catch {
       res.status(500).send("PDF generation failed");
     }
   }

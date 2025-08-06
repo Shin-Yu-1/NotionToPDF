@@ -47,8 +47,6 @@ function App() {
         a.remove();
         window.URL.revokeObjectURL(url);
       }
-
-      console.log(res);
     } catch {
       alert('PDF 생성을 할 수 없습니다.');
     }
