@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import "./styles/App.css";
+import { useRef } from 'react';
+import './styles/App.css';
 
 function App() {
   const inputRef = useRef<HTMLInputElement | null>(null);
