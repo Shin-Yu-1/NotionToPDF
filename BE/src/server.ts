@@ -20,7 +20,7 @@ app.get("/", (req: Request, res: Response) => {
 app.post(
   "/api/convert",
   async (req: Request<{}, Buffer, ConvertRequest>, res: Response) => {
-    const { notionUrl } = req.body;
+    const { notionUrl } = req.body.data;
 
     if (!notionUrl || !isValidNotionUrl(notionUrl)) {
       return res.status(400).send("Invalid Notion URL");
@@ -39,8 +39,11 @@ app.post(
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="notion-${Date.now()}.pdf"`,
       });
+
+      console.log(pdf);
       res.send(pdf);
     } catch (error) {
+      console.log(error);
       res.status(500).send("PDF generation failed");
     }
   }
