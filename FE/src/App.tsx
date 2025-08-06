@@ -49,8 +49,8 @@ function App() {
       }
 
       console.log(res);
-    } catch (error) {
-      console.error(error.response.data);
+    } catch {
+      alert('PDF 생성을 할 수 없습니다.');
     }
   };
 
