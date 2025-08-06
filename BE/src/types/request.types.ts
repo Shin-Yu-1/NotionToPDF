@@ -1,5 +1,7 @@
-export type notionUrl = string;
+export type NotionUrl = string;
 
 export interface ConvertRequest {
-  notionUrl: notionUrl;
+  data: {
+    notionUrl: NotionUrl;
+  };
 }
