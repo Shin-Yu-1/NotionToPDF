@@ -9,7 +9,6 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await apiClient.get('/');
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -53,12 +52,17 @@ function App() {
   };
 
   return (
-    <>
-      <div>
-        <input type="text" onChange={handleChange} />
-        <button onClick={handleClick}>CONVERT</button>
+    <div className="app-container">
+      <h1 className="title">Notion → PDF 변환기</h1>
+      <p className="subtitle">Notion 페이지 URL을 입력하고 PDF로 변환하세요.</p>
+
+      <div className="form-group">
+        <input type="text" onChange={handleChange} className="input" />
+        <button onClick={handleClick} className="button">
+          변환하기
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 
