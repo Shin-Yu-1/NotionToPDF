@@ -2,7 +2,7 @@
   max-width: 500px;
   margin: 80px auto;
   padding: 20px;
-  background: #ffffff;
+  background: #ecf0f1;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   text-align: center;
@@ -36,12 +36,12 @@
 }
 
 .input:focus {
-  border-color: #2563eb;
+  border-color: #2563EB;
 }
 
 .button {
-  background: #2563eb;
-  color: white;
+  background: #2563EB;
+  color: #F8F9FF;
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
